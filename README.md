@@ -1,21 +1,22 @@
-<h1 align="center">discord-super-utils</h1>
+<h1 align="center">nextcordSuperUtils</h1>
+<h1 align="center">(updated fork of discordSuperUtils)</h1>
 
 <p align="center">
-  <a href="https://codefactor.io/repository/github/discordsuperutils/discord-super-utils/"><img src="https://img.shields.io/codefactor/grade/github/discordsuperutils/discord-super-utils?style=flat-square" /></a>
-  <a href="https://discord.gg/zhwcpTBBeC"><img src="https://img.shields.io/discord/863388828734586880?logo=discord&color=blue&style=flat-square" /></a>
-  <a href="https://pepy.tech/project/discordsuperutils"><img src="https://img.shields.io/pypi/dm/discordSuperUtils?color=green&style=flat-square" /></a>
-  <a href="https://pypi.org/project/discordSuperUtils/"><img src="https://img.shields.io/pypi/v/discordSuperUtils?style=flat-square" /></a>
-  <a href=""><img src="https://img.shields.io/pypi/l/discordSuperUtils?style=flat-square" /></a>
+  <a href="https://codefactor.io/repository/github/Cu3t0m/nextcordSuperUtils/"><img src="https://img.shields.io/codefactor/grade/github/Cu3t0m/nextcordSuperUtils?style=flat-square" /></a>
+  <a href="https://nextcord.gg/zhwcpTBBeC"><img src="https://img.shields.io/nextcord/863388828734586880?logo=nextcord&color=blue&style=flat-square" /></a>
+  <a href="https://pepy.tech/project/nextcordSuperUtils"><img src="https://img.shields.io/pypi/dm/nextcordSuperUtils?color=green&style=flat-square" /></a>
+  <a href="https://pypi.org/project/nextcordSuperUtils/"><img src="https://img.shields.io/pypi/v/nextcordSuperUtils?style=flat-square" /></a>
+  <a href=""><img src="https://img.shields.io/pypi/l/nextcordSuperUtils?style=flat-square" /></a>
   <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square">
     <br/>
-  <a href="https://discord-super-utils.gitbook.io/discord-super-utils/">Documentation</a>
-  <a href="https://discordsuperutils.readthedocs.io/en/latest/">Secondary Documentation</a>
+  <a href="https://nextcordSuperUtils.gitbook.io/nextcordSuperUtils/">Documentation</a>
+  <a href="https://nextcordsuperutils.readthedocs.io/en/latest/">Secondary Documentation</a>
 </p>
 
 <p align="center">
-   A modern python module including many useful features that make discord bot programming extremely easy.
+   A modern python module including many useful features that make nextcord bot programming extremely easy.
     <br/>
-   <b>The documentation is not done. if you have any questions, feel free to ask them in our <a href="https://discord.gg/zhwcpTBBeC">discord server.</a></b>
+   <b>The documentation is not done. if you have any questions, feel free to ask them in our <a href="https://nextcord.gg/zhwcpTBBeC">nextcord server.</a></b>
 </p>
 
 Features
@@ -40,7 +41,7 @@ Features
 - Modern spotify client that is optimized for player fetching.
 - Modern Punishment Manager (Kick, Ban, Infractions, Mutes)
 - Modern Template Manager.
-- Modern CogManager that supports usage of managers in discord cogs.
+- Modern CogManager that supports usage of managers in nextcord cogs.
 - Modern MessageFilter and AntiSpam.
 - Customizable ModMail Manager
 - Modern Youtube client that is optimized for player fetching.
@@ -50,10 +51,10 @@ Features
 Installation
 --------------
 
-Installing discordSuperUtils is very easy.
+Installing nextcordSuperUtils is very easy.
 
 ```sh
-python -m pip install discordSuperUtils
+python -m pip install nextcordSuperUtils
 ```
 
 Examples
@@ -62,21 +63,21 @@ Examples
 ### Leveling Example (With Role Manager) ###
 
 ```py
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 
-import discordSuperUtils
+import nextcordSuperUtils
 
-bot = commands.Bot(command_prefix="-", intents=discord.Intents.all())
-LevelingManager = discordSuperUtils.LevelingManager(bot, award_role=True)
+bot = commands.Bot(command_prefix="-", intents=nextcord.Intents.all())
+LevelingManager = nextcordSuperUtils.LevelingManager(bot, award_role=True)
 ImageManager = (
-    discordSuperUtils.ImageManager()
+    nextcordSuperUtils.ImageManager()
 )  # LevelingManager uses ImageManager to create the rank command.
 
 
 @bot.event
 async def on_ready():
-    database = discordSuperUtils.DatabaseManager.connect(...)
+    database = nextcordSuperUtils.DatabaseManager.connect(...)
     await LevelingManager.connect_to_database(database, ["xp", "roles", "role_list"])
 
     print("Leveling manager is ready.", bot.user)
@@ -104,7 +105,7 @@ async def rank(ctx):
     image = await ImageManager.create_leveling_profile(
         ctx.author,
         member_data,
-        discordSuperUtils.Backgrounds.GALAXY,
+        nextcordSuperUtils.Backgrounds.GALAXY,
         (127, 255, 0),
         guild_leaderboard.index(member[0]) + 1 if member else -1,
         outline=5,
@@ -113,7 +114,7 @@ async def rank(ctx):
 
 
 @bot.command()
-async def set_roles(ctx, interval: int, *roles: discord.Role):
+async def set_roles(ctx, interval: int, *roles: nextcord.Role):
     await LevelingManager.set_interval(ctx.guild, interval)
     await LevelingManager.set_roles(ctx.guild, roles)
 
@@ -129,9 +130,9 @@ async def leaderboard(ctx):
         f"Member: {x.member}, XP: {await x.xp()}" for x in guild_leaderboard
     ]
 
-    await discordSuperUtils.PageManager(
+    await nextcordSuperUtils.PageManager(
         ctx,
-        discordSuperUtils.generate_embeds(
+        nextcordSuperUtils.generate_embeds(
             formatted_leaderboard,
             title="Leveling Leaderboard",
             fields=25,
@@ -150,16 +151,16 @@ bot.run("token")
 ```py
 from math import floor
 
-from discord.ext import commands
+from nextcord.ext import commands
 
-import discordSuperUtils
-from discordSuperUtils import MusicManager
-import discord
+import nextcordSuperUtils
+from nextcordSuperUtils import MusicManager
+import nextcord
 
 client_id = ""
 client_secret = ""
 
-bot = commands.Bot(command_prefix="-", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="-", intents=nextcord.Intents.all())
 # MusicManager = MusicManager(bot, spotify_support=False)
 
 
@@ -194,7 +195,7 @@ async def on_play(ctx, player):
 
 @bot.event
 async def on_ready():
-    # database = discordSuperUtils.DatabaseManager.connect(...)
+    # database = nextcordSuperUtils.DatabaseManager.connect(...)
     # await MusicManager.connect_to_database(database, ["playlists"])
 
     print("Music manager is ready.", bot.user)
@@ -225,7 +226,7 @@ async def join(ctx):
 
 
 @bot.group(invoke_without_command=True)
-async def playlists(ctx, user: discord.User):
+async def playlists(ctx, user: nextcord.User):
     user_playlists = await MusicManager.get_user_playlists(user)
 
     formatted_playlists = [
@@ -233,7 +234,7 @@ async def playlists(ctx, user: discord.User):
         for user_playlist in user_playlists
     ]
 
-    embeds = discordSuperUtils.generate_embeds(
+    embeds = nextcordSuperUtils.generate_embeds(
         formatted_playlists,
         f"Playlists of {user}",
         f"Shows {user.mention}'s playlists.",
@@ -241,7 +242,7 @@ async def playlists(ctx, user: discord.User):
         string_format="{}",
     )
 
-    page_manager = discordSuperUtils.PageManager(ctx, embeds, public=True)
+    page_manager = nextcordSuperUtils.PageManager(ctx, embeds, public=True)
     await page_manager.run()
 
 
@@ -339,10 +340,10 @@ async def lyrics(ctx, query: str = None):
                 continue
             current += split + "\n"
 
-        page_manager = discordSuperUtils.PageManager(
+        page_manager = nextcordSuperUtils.PageManager(
             ctx,
             [
-                discord.Embed(
+                nextcord.Embed(
                     title=f"Lyrics for '{title}' by '{author}', (Page {i + 1}/{len(res)})",
                     description=x,
                 )
@@ -415,7 +416,7 @@ async def complete_queue(ctx):
 
         num_of_fields = 25
 
-        embeds = discordSuperUtils.generate_embeds(
+        embeds = nextcordSuperUtils.generate_embeds(
             formatted_queue,
             "Complete Song Queue",
             "Shows the complete song queue.",
@@ -423,7 +424,7 @@ async def complete_queue(ctx):
             string_format="{}",
         )
 
-        page_manager = discordSuperUtils.PageManager(
+        page_manager = nextcordSuperUtils.PageManager(
             ctx, embeds, public=True, index=floor(ctx_queue.pos / 25)
         )
         await page_manager.run()
@@ -449,7 +450,7 @@ async def history(ctx):
             for x in ctx_queue.history
         ]
 
-        embeds = discordSuperUtils.generate_embeds(
+        embeds = nextcordSuperUtils.generate_embeds(
             formatted_history,
             "Song History",
             "Shows all played songs",
@@ -457,7 +458,7 @@ async def history(ctx):
             string_format="{}",
         )
 
-        page_manager = discordSuperUtils.PageManager(ctx, embeds, public=True)
+        page_manager = nextcordSuperUtils.PageManager(ctx, embeds, public=True)
         await page_manager.run()
 
 
@@ -474,7 +475,7 @@ async def queue(ctx):
             for x in ctx_queue.queue[ctx_queue.pos + 1 :]
         ]
 
-        embeds = discordSuperUtils.generate_embeds(
+        embeds = nextcordSuperUtils.generate_embeds(
             formatted_queue,
             "Queue",
             f"Now Playing: {await MusicManager.now_playing(ctx)}",
@@ -482,7 +483,7 @@ async def queue(ctx):
             string_format="{}",
         )
 
-        page_manager = discordSuperUtils.PageManager(ctx, embeds, public=True)
+        page_manager = nextcordSuperUtils.PageManager(ctx, embeds, public=True)
         await page_manager.run()
 
 
@@ -497,13 +498,13 @@ async def ls(ctx):
         loop = queue.loop
         loop_status = None
 
-        if loop == discordSuperUtils.Loops.LOOP:
+        if loop == nextcordSuperUtils.Loops.LOOP:
             loop_status = "Looping enabled."
 
-        elif loop == discordSuperUtils.Loops.QUEUE_LOOP:
+        elif loop == nextcordSuperUtils.Loops.QUEUE_LOOP:
             loop_status = "Queue looping enabled."
 
-        elif loop == discordSuperUtils.Loops.NO_LOOP:
+        elif loop == nextcordSuperUtils.Loops.NO_LOOP:
             loop_status = "No loop enabled."
 
         if loop_status:
@@ -525,11 +526,11 @@ More examples are listed in the examples folder.
 Known Issues
 --------------
 
-- Removing an animated emoji wont be recognized as a reaction role, as it shows up as not animated for some reason, breaking the reaction matcher. (Discord API Related)
+- Removing an animated emoji wont be recognized as a reaction role, as it shows up as not animated for some reason, breaking the reaction matcher. (nextcord API Related)
 - Leveling might call the on_level_up event multiple times, resulting in duplicate messages, caused by duplicate records in the leveling table. (Fixed)
 
 Support
 --------------
 
-- **[Support Server](https://discord.gg/zhwcpTBBeC)**
-- **[Documentation](https://discord-super-utils.gitbook.io/discord-super-utils/)**
+- **[Support Server](https://nextcord.gg/zhwcpTBBeC)**
+- **[Documentation](https://nextcordSuperUtils.gitbook.io/nextcordSuperUtils/)**
