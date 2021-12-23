@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include requirements.txt
+include discordSuperUtils/*
+include discordSuperUtils/assets/*
+include discordSuperUtils/music/*
+include discordSuperUtils/music/lavalink/*
